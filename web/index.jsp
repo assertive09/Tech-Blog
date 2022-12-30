@@ -46,7 +46,7 @@ clip-path: polygon(50% 0, 100% 0, 100% 95%, 69% 100%, 50% 96%, 31% 100%, 0 96%, 
                 <div class="col-md-4">
                     <div class="card" >
                         <div class="card-body">
-                            <h5 class="card-title">Java-Programming</h5>
+                            <h5 class="card-title">Java Programming</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn primary-background text-white">Read more</a>
                         </div>
@@ -55,7 +55,7 @@ clip-path: polygon(50% 0, 100% 0, 100% 95%, 69% 100%, 50% 96%, 31% 100%, 0 96%, 
                 <div class="col-md-4">
                     <div class="card" >
                         <div class="card-body">
-                            <h5 class="card-title">Java-Programming</h5>
+                            <h5 class="card-title">C Programming</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn primary-background text-white">Read more</a>
                         </div>
@@ -64,7 +64,7 @@ clip-path: polygon(50% 0, 100% 0, 100% 95%, 69% 100%, 50% 96%, 31% 100%, 0 96%, 
                 <div class="col-md-4">
                     <div class="card" >
                         <div class="card-body">
-                            <h5 class="card-title">Java-Programming</h5>
+                            <h5 class="card-title">C++ Programming</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn primary-background text-white">Read more</a>
                         </div>
@@ -76,7 +76,7 @@ clip-path: polygon(50% 0, 100% 0, 100% 95%, 69% 100%, 50% 96%, 31% 100%, 0 96%, 
                 <div class="col-md-4">
                     <div class="card" >
                         <div class="card-body">
-                            <h5 class="card-title">Java-Programming</h5>
+                            <h5 class="card-title">Python Programming</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn primary-background text-white">Read more</a>
                         </div>
@@ -85,7 +85,7 @@ clip-path: polygon(50% 0, 100% 0, 100% 95%, 69% 100%, 50% 96%, 31% 100%, 0 96%, 
                 <div class="col-md-4">
                     <div class="card" >
                         <div class="card-body">
-                            <h5 class="card-title">Java-Programming</h5>
+                            <h5 class="card-title">C# Programming</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn primary-background text-white">Read more</a>
                         </div>
@@ -94,7 +94,7 @@ clip-path: polygon(50% 0, 100% 0, 100% 95%, 69% 100%, 50% 96%, 31% 100%, 0 96%, 
                 <div class="col-md-4">
                     <div class="card" >
                         <div class="card-body">
-                            <h5 class="card-title">Java-Programming</h5>
+                            <h5 class="card-title">Javascript Programming</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn primary-background text-white">Read more</a>
                         </div>

@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 
-public class ConnetionProvider {
+public class ConnectionProvider {
     public static Connection conn;
     
     public static Connection getConnection(){
