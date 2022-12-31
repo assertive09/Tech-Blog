@@ -34,7 +34,7 @@
                             Message msg= (Message)session.getAttribute("msg");
                             if(msg!=null){
                             %>
-                            <div class="alert alert-primary" role="alert">
+                            <div class="alert <%= msg.getCssClass() %>" role="alert">
                                 <%= msg.getContent() %>
                             </div>
                             <%
