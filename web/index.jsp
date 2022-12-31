@@ -1,5 +1,5 @@
 <%@page import="java.sql.Connection"%>
-<%@page import="com.tech.blog.helper.ConnetionProvider"%>
+<%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

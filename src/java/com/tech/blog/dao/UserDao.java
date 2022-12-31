@@ -16,7 +16,7 @@ public boolean saveUser(User user) {
     try {
         //user-->database
         
-        String query="insert into sign_up(name,email,password,gender,about) values(?,?,?,?,?)";
+        String query="insert into users(name,email,password,gender,about) values(?,?,?,?,?)";
         PreparedStatement pst= this.con.prepareStatement(query);
         pst.setString(1, user.getName());
         pst.setString(2, user.getEmail());
@@ -30,6 +30,34 @@ public boolean saveUser(User user) {
     e.printStackTrace();
     }
     return  status;
-}   
+}  
+
+public User getUserByEmailandPassword(String email,String password){
+
+    User user=null;
+    try{
+    String query="select * from users where email=? and password=?";
+    PreparedStatement pst=this.con.prepareStatement(query);
+    pst.setString(1, email);
+    pst.setString(2, password);
+       // System.out.println(email);
+    ResultSet rs=pst.executeQuery();
+    
+    if(rs.next()){
+        user=new User();
+      user.setName(rs.getString("name"));
+      user.setEmail(rs.getString("email"));
+      user.setPassword(rs.getString("password"));
+      user.setGender(rs.getString("gender"));
+      user.setId(rs.getInt("id"));
+      user.setDatetime(rs.getTimestamp("r_date"));
+      user.setProfile(rs.getString("profile"));
+    }
+    }catch(Exception e){
+    e.printStackTrace();
+    }
+    
+    return user;
+}
     
 }

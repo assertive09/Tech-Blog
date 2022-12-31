@@ -43,8 +43,9 @@ public class RegisterServlet extends HttpServlet {
             String password=request.getParameter("user_password");
             String about=request.getParameter("about");
             String gender=request.getParameter("user_gender");
+            String profile=request.getParameter("profile");
             
-          User user=  new User(name,email,password,gender,about);
+            User user=  new User(name,email,password,gender,about,profile);
             //create a user dao object
                 UserDao dao=new UserDao(ConnectionProvider.getConnection());
                if( dao.saveUser(user)){

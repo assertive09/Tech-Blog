@@ -9,7 +9,9 @@ public class User {
     private String gender;
     private Timestamp datetime;
     private String about;
-
+    private String profile;
+    private int id;
+    
 //    public User(int id, String name, String email, String password, String gender, Timestamp datetime, String about) {
 //        this.id = id;
 //        this.name = name;
@@ -23,17 +25,35 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email, String password, String gender, String about) {
+    public User(String name, String email, String password, String gender, String about,String profile) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.gender = gender;
         this.about = about;
+        this.profile=profile;
     }
 
 //    getters and setters
 //    if object is already create and to update a single property to database
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    
 
     public String getName() {
         return name;
