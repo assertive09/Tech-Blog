@@ -30,12 +30,11 @@
                                 <br>
                                 <p>Login Here</p>
                             </div>  
-                            <!--if login failed-->
                             <%
                             Message msg= (Message)session.getAttribute("msg");
                             if(msg!=null){
                             %>
-                            <div class="alert <%= msg.getCssClass() %>" role="alert">
+                            <div class="alert alert-primary" role="alert">
                                 <%= msg.getContent() %>
                             </div>
                             <%
