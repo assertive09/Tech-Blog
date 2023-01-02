@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
                if(user!=null){
                    HttpSession session=request.getSession();
                    session.setAttribute("currentUser", user);
-                   response.sendRedirect("profile.jsp");
+                   response.sendRedirect("profile_page.jsp");
                }else{
                 
                    Message msg=new Message("Invalid Login Details", "alert error", "alert-danger");
