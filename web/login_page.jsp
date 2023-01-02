@@ -30,6 +30,7 @@
                                 <br>
                                 <p>Login Here</p>
                             </div>  
+                            <!--if login failed-->
                             <%
                             Message msg= (Message)session.getAttribute("msg");
                             if(msg!=null){
