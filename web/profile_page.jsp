@@ -141,9 +141,7 @@
                                         </tr>
                                         <tr>
                                             <th>About</th> 
-                                            <td> <textarea rows="3" class="form-control" name="user_about">
-                                                    <%= user.getAbout()%>
-                                                </textarea>
+                                            <td> <textarea rows="3" class="form-control" name="user_about"><%= user.getAbout()%></textarea>
                                             </td>
                                         </tr>
                                          <tr>

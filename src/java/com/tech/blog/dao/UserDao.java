@@ -52,6 +52,7 @@ public User getUserByEmailandPassword(String email,String password){
       user.setId(rs.getInt("id"));
       user.setDatetime(rs.getTimestamp("r_date"));
       user.setProfile(rs.getString("profile"));
+      user.setAbout(rs.getString("about"));
     }
     }catch(Exception e){
     e.printStackTrace();
