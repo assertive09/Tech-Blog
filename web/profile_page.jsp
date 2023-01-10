@@ -1,3 +1,4 @@
+<%@page import="com.tech.blog.entities.Message"%>
 <%@page import="com.tech.blog.entities.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -66,6 +67,17 @@
         </nav>
         <!--end of navbar-->
         <!-- Button trigger modal -->
+         <%
+                            Message msg= (Message) session.getAttribute("msg");
+                            if(msg!=null){
+                            %>
+                            <div class="alert <%= msg.getCssClass() %>" role="alert">
+                                <%= msg.getContent() %>
+                            </div>
+                            <%
+                                session.removeAttribute("msg");
+                                } 
+                            %>
 
         <!-- profile modal -->
         <div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -164,6 +176,7 @@
                 </div>
             </div>
         </div>
+                                            
         <!--end of profile modal-->
         <!--javascript-->
         <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
