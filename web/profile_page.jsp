@@ -1,3 +1,7 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.tech.blog.entities.Categories"%>
+<%@page import="com.tech.blog.dao.PostDao"%>
+<%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page import="com.tech.blog.entities.Message"%>
 <%@page import="com.tech.blog.entities.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
         <link href="css/mystyle.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
@@ -23,7 +27,7 @@
         <title>Profile Page</title>
     </head>
     <body>
-   
+
         <nav class="navbar navbar-expand-lg navbar-dark primary-background">
             <a class="navbar-brand" href="index.jsp"><span class="fa fa-braille"></span> Tech Blog </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,8 +53,10 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#"><span class="fa fa-drivers-license
-                                                            "></span> Contact Us</a>
+                        <a class="nav-link " href="#"><span class="fa fa-drivers-license"></span> Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#!" data-toggle="modal" data-target="#add-post-modal"><span class="fa fa-paper-plane" ></span> Post</a>
                     </li>
 
                 </ul>
@@ -67,17 +73,17 @@
         </nav>
         <!--end of navbar-->
         <!-- Button trigger modal -->
-         <%
-                            Message msg= (Message) session.getAttribute("msg");
-                            if(msg!=null){
-                            %>
-                            <div class="alert <%= msg.getCssClass() %>" role="alert">
-                                <%= msg.getContent() %>
-                            </div>
-                            <%
-                                session.removeAttribute("msg");
-                                } 
-                            %>
+        <%
+            Message msg = (Message) session.getAttribute("msg");
+            if (msg != null) {
+        %>
+        <div class="alert <%= msg.getCssClass()%>" role="alert">
+            <%= msg.getContent()%>
+        </div>
+        <%
+                session.removeAttribute("msg");
+            }
+        %>
 
         <!-- profile modal -->
         <div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -114,7 +120,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row">About</th>
-                                            <td><%= user.getAbout() %></td>
+                                            <td><%= user.getAbout()%></td>
 
                                         </tr>
                                         <tr>
@@ -149,22 +155,22 @@
                                         </tr>
                                         <tr>
                                             <th>Gender</th>
-                                            <td><%= user.getGender() %></td>
+                                            <td><%= user.getGender()%></td>
                                         </tr>
                                         <tr>
                                             <th>About</th> 
                                             <td> <textarea rows="3" class="form-control" name="user_about"><%= user.getAbout()%></textarea>
                                             </td>
                                         </tr>
-                                         <tr>
+                                        <tr>
                                             <th>Profile Pic</th>
                                             <td><input type="file" name="image" class="form-control">
-                                                    </td>
+                                            </td>
                                         </tr>
                                     </table>
-                                                <div class="container text-center">
-                                                    <button type="submit" class="btn btn-outline-primary primary-background text-white"> Save</button>
-                                                </div>
+                                    <div class="container text-center">
+                                        <button type="submit" class="btn btn-outline-primary primary-background text-white"> Save</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -176,8 +182,63 @@
                 </div>
             </div>
         </div>
-                                            
+
         <!--end of profile modal-->
+
+
+        <!--post modal-->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="add-post-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Provide the Post details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="AddPostServlet" method="POST">
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option selected disabled>---Select Category---</option>
+                                    <%
+                                       PostDao p=new PostDao(ConnectionProvider.getConnection());
+                                       ArrayList<Categories> list=p.getAllCategories();
+                                       for(Categories c : list){
+                                        %>
+                                    <option><%= c.getName() %></option>
+                                   <% 
+                                       }
+                                     %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Enter Post Title">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="Enter Your Content" style=" height:100px"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="Enter The Code (if any)" style=" height:150px"></textarea>
+                            </div>
+                            <div class="form-group">
+                                Select the picture to upload
+                                <br>
+                                <input type="file"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!--javascript-->
         <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

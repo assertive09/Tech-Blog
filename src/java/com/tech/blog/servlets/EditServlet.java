@@ -1,5 +1,4 @@
 package com.tech.blog.servlets;
-
 import com.tech.blog.dao.UserDao;
 import com.tech.blog.entities.Message;
 import com.tech.blog.entities.User;
@@ -33,6 +32,7 @@ public class EditServlet extends HttpServlet {
             String userName=request.getParameter("user_name");
             String userPassword=request.getParameter("user_password");
             String userAbout=request.getParameter("user_about");
+         
             Part part=request.getPart("image");
             String imageName=part.getSubmittedFileName();
             
@@ -44,15 +44,20 @@ public class EditServlet extends HttpServlet {
             user.setName(userName);
             user.setPassword(userPassword);
             user.setAbout(userAbout);
+            String oldFile=user.getProfile();
             user.setProfile(imageName);
             user.setId(user.getId());
             
             //updating to database
             UserDao dao=new UserDao(ConnectionProvider.getConnection());
+            String oldPath=request.getRealPath("/")+"pics"+File.separator+oldFile;
+            
             if(dao.updateUser(user)){
             out.println("updated to db");
             String path=request.getRealPath("/")+"pics"+File.separator+user.getProfile();
-                Helper.deleteFile(path);
+               if(!oldFile.equals("default.png")){
+               Helper.deleteFile(oldFile);
+               }
                 if(Helper.saveFile(part.getInputStream(), path)){
                   out.println("Profile pic updated");
                    Message msg=new Message("Profile Updated", "alert success", "alert-success");
