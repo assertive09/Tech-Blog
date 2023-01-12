@@ -56,7 +56,7 @@ public class EditServlet extends HttpServlet {
             out.println("updated to db");
             String path=request.getRealPath("/")+"pics"+File.separator+user.getProfile();
                if(!oldFile.equals("default.png")){
-               Helper.deleteFile(oldFile);
+               Helper.deleteFile(oldPath);
                }
                 if(Helper.saveFile(part.getInputStream(), path)){
                   out.println("Profile pic updated");

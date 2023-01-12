@@ -13,6 +13,7 @@ public class Helper {
           File filePath=new File(path);
           filePath.delete();
           status=true;
+          
         }  catch(Exception e){
           e.printStackTrace();
            }         

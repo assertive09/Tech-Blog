@@ -5,6 +5,7 @@
 <%@page import="com.tech.blog.entities.Message"%>
 <%@page import="com.tech.blog.entities.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%
     User user = (User) session.getAttribute("currentUser");
     if (user == null) {
@@ -200,41 +201,41 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="AddPostServlet" method="POST">
+                        <form  id="add-post-form" action="AddPostServlet" method="POST">
                             <div class="form-group">
-                                <select class="form-control">
+                                <select class="form-control" name="cid">
                                     <option selected disabled>---Select Category---</option>
                                     <%
                                        PostDao p=new PostDao(ConnectionProvider.getConnection());
                                        ArrayList<Categories> list=p.getAllCategories();
                                        for(Categories c : list){
                                         %>
-                                    <option><%= c.getName() %></option>
+                                        <option value="<%= c.getCid() %>"><%= c.getName() %></option>
                                    <% 
                                        }
                                      %>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Enter Post Title">
+                                <input name="pTitle" class="form-control" placeholder="Enter Post Title">
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" placeholder="Enter Your Content" style=" height:100px"></textarea>
+                                <textarea  name="pContent" class="form-control" placeholder="Enter Your Content" style=" height:100px"></textarea>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" placeholder="Enter The Code (if any)" style=" height:150px"></textarea>
+                                <textarea name="pCOde" class="form-control" placeholder="Enter The Code (if any)" style=" height:150px"></textarea>
                             </div>
                             <div class="form-group">
                                 Select the picture to upload
                                 <br>
-                                <input type="file"/>
+                                <input type="file" name="pic">
                             </div>
+                                <div class="container text-center"> 
+                                    <button type="submit" class="btn btn-outline-primary">Post</button>
+                                </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -267,6 +268,41 @@
                 })
             })
         </script>
+     
+        <!--adding post js-->
+        <script>
+        $(document).ready(function (e){
+           
+           $('#add-post-form').on("submit",function(event){
+               console.log("clicked");
+               //this code gets called when form is submitted.
+               event.preventDefault();
+               let form=new FormData(this);
+               
+//               now requesting to server
+                $.ajax({
+                    url: "AddPostServlet",
+                    type: 'POST',
+                    data:form,
+                    success: function (data, textStatus, jqXHR) {
+                       //console.log(data);
+                       if(data.trim()==='done'){
+                          console.log("Success");
+                       }
+                       else{
+                           console.log("Error");
+                       }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log("Something went wrong");
+                    },
+                    processData: false,
+                    contentType: false                  
+                })
 
+           })
+        })
+        
+        </script>
     </body>
 </html>
