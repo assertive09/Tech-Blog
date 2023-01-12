@@ -206,14 +206,14 @@
                                 <select class="form-control" name="cid">
                                     <option selected disabled>---Select Category---</option>
                                     <%
-                                       PostDao p=new PostDao(ConnectionProvider.getConnection());
-                                       ArrayList<Categories> list=p.getAllCategories();
-                                       for(Categories c : list){
-                                        %>
-                                        <option value="<%= c.getCid() %>"><%= c.getName() %></option>
-                                   <% 
-                                       }
-                                     %>
+                                        PostDao p = new PostDao(ConnectionProvider.getConnection());
+                                        ArrayList<Categories> list = p.getAllCategories();
+                                        for (Categories c : list) {
+                                    %>
+                                    <option value="<%= c.getCid()%>"><%= c.getName()%></option>
+                                    <%
+                                        }
+                                    %>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -230,12 +230,12 @@
                                 <br>
                                 <input type="file" name="pic">
                             </div>
-                                <div class="container text-center"> 
-                                    <button type="submit" class="btn btn-outline-primary">Post</button>
-                                </div>
+                            <div class="container text-center"> 
+                                <button type="submit" class="btn btn-outline-primary">Post</button>
+                            </div>
                         </form>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -245,6 +245,7 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="js/myjs.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" ></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script>
             $(document).ready(function () {
@@ -268,41 +269,41 @@
                 })
             })
         </script>
-     
+
         <!--adding post js-->
         <script>
-        $(document).ready(function (e){
-           
-           $('#add-post-form').on("submit",function(event){
-               console.log("clicked");
-               //this code gets called when form is submitted.
-               event.preventDefault();
-               let form=new FormData(this);
-               
-//               now requesting to server
-                $.ajax({
-                    url: "AddPostServlet",
-                    type: 'POST',
-                    data:form,
-                    success: function (data, textStatus, jqXHR) {
-                       //console.log(data);
-                       if(data.trim()==='done'){
-                          console.log("Success");
-                       }
-                       else{
-                           console.log("Error");
-                       }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log("Something went wrong");
-                    },
-                    processData: false,
-                    contentType: false                  
-                })
+            $(document).ready(function (e) {
 
-           })
-        })
-        
+                $('#add-post-form').on("submit", function (event) {
+                    console.log("clicked");
+                    //this code gets called when form is submitted.
+                    event.preventDefault();
+                    let form = new FormData(this);
+
+//               now requesting to server
+                    $.ajax({
+                        url: "AddPostServlet",
+                        type: 'POST',
+                        data: form,
+                        success: function (data, textStatus, jqXHR) {
+                            //console.log(data);
+                            if (data.trim() === 'done') {
+                                console.log("Success");
+                                swal("Sucess", "Post Uploaded", "success");
+                            } else {
+                                swal("Error", "Post Not Uploaded", "error");
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            swal("Error", "Post Not Uploaded", "error");
+                        },
+                        processData: false,
+                        contentType: false
+                    })
+
+                })
+            })
+
         </script>
     </body>
 </html>
