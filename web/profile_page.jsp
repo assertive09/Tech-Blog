@@ -29,6 +29,8 @@
     </head>
     <body>
 
+        
+        <!--navbar opening-->
         <nav class="navbar navbar-expand-lg navbar-dark primary-background">
             <a class="navbar-brand" href="index.jsp"><span class="fa fa-braille"></span> Tech Blog </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +75,7 @@
             </div>
         </nav>
         <!--end of navbar-->
-        <!-- Button trigger modal -->
+
         <%
             Message msg = (Message) session.getAttribute("msg");
             if (msg != null) {
@@ -85,6 +87,51 @@
                 session.removeAttribute("msg");
             }
         %>
+
+
+
+        <!--opening main body of the page-->       
+        <main>
+            <div class="container">
+                <div class="row mt-4" >
+                    <!--first column-->
+                    <div class="col-md-4">
+                        <!--categories-->
+                        <div class="list-group ">
+                            <a href="#" onclick="getAllPost(0,this)" class="c-link list-group-item list-group-item-action active">
+                               All Posts
+                            </a>
+                            <% 
+                              ArrayList <Categories> cat = new PostDao(ConnectionProvider.getConnection()).getAllCategories();
+                              for(  Categories c:cat){
+                            %>
+                            <a href="#" onclick="getAllPost(<%= c.getCid() %>,this)" class="c-link list-group-item list-group-item-action disabled"><%= c.getName() %></a>
+                            <% 
+                                }
+                            %>
+                        </div>
+                    </div>
+
+                    <!--second column-->
+                    <div class="col-md-8">
+                        
+                        <!--posts--> 
+                        <div class="container text-center" id="loader" >
+                            <i class="fa fa-refresh fa-3x fa-spin"></i>
+                            <h3 class="mt-3">Loading...</h3>
+                        </div>
+                        
+                        <div class="container-fluid" id="post-container">
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+        <!--end of main body-->
 
         <!-- profile modal -->
         <div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -188,9 +235,6 @@
 
 
         <!--post modal-->
-
-
-        <!-- Modal -->
         <div class="modal fade" id="add-post-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -289,9 +333,9 @@
                             //console.log(data);
                             if (data.trim() === 'done') {
                                 console.log("Success");
-                                swal("Sucess", "Post Uploaded", "success");
+                                swal("Sucess", "Post Uploaded","success");
                             } else {
-                                swal("Error", "Post Not Uploaded", "error");
+                                swal("Error", "Post Not Uploaded","error");
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -305,5 +349,31 @@
             })
 
         </script>
+        
+       <!--loading post using ajax-->
+       <script>
+           function getAllPost(catId,temp){
+                   $('#loader').show();
+                   $('#post-container').hide();  
+                   $(".c-link").removeClass('active');
+               $.ajax({
+                  url:'load_posts.jsp',
+                  data:{cid:catId},
+                  success: function (data, textStatus, jqXHR) {
+                        $(temp).addClass('active');
+                        console.log(data);
+                        $('#loader').hide();
+                        $('#post-container').show();
+                        $('#post-container').html(data);
+                       
+                    }
+              })
+           }
+           $(document).ready(function (e){
+               let allPostRef=$('.c-link')[0];
+              getAllPost(0,allPostRef);
+           })
+          </script>
+       
     </body>
 </html>
