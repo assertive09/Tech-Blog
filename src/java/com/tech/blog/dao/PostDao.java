@@ -123,7 +123,7 @@ public class PostDao {
          try {
            Statement s= c.createStatement();
            ResultSet rs=s.executeQuery("select * from post where pid='"+pid+"'");
-           while(rs.next()){
+           if(rs.next()){
            post = new Post();
            post.setPid(rs.getInt("pid"));
            post.setCatId(rs.getInt("catId"));
@@ -132,6 +132,7 @@ public class PostDao {
            post.setpContent(rs.getString("pContent"));
            post.setpTitle(rs.getString("pTitle"));
            post.setpPic(rs.getString("pPic"));
+           post.setpDate(rs.getTimestamp("pDate"));
            }
         } catch (Exception e) {
         }
@@ -139,4 +140,11 @@ public class PostDao {
         
         return post;
     }
+    
+//   public String userinfo(){
+//   
+//       String userinfo
+//   
+//       return info;
+//   }
 }

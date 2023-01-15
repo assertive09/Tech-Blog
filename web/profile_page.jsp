@@ -16,6 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--css-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
         <link href="css/mystyle.css" rel="stylesheet" type="text/css"/>
@@ -23,6 +24,11 @@
         <style>
             .banner-background{
                 clip-path: polygon(50% 0, 100% 0, 100% 95%, 69% 100%, 50% 96%, 31% 100%, 0 96%, 0 35%, 0 0);
+            }
+            body{
+                background: url(img/blue-background-images-for-websites.jpg);
+                background-size: cover;
+                background-attachment: fixed;
             }
         </style>
         <title>Profile Page</title>
@@ -283,6 +289,7 @@
                 </div>
             </div>
         </div>
+        <!--end of post model-->
 
         <!--javascript-->
         <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>

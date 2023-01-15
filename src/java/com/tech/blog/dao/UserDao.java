@@ -82,4 +82,21 @@ public class UserDao {
         return status;
     }
 
+    
+    public User getUserByPostId(int userId){
+    User user=null;
+    
+        try {
+            String query="select * from users where id='"+userId+"'";
+            ResultSet rs=con.createStatement().executeQuery(query);
+            if(rs.next()){
+            user=new User();
+            user.setName(rs.getString("name"));
+            }
+        } catch (Exception e) {
+        }
+    
+    return user;
+            
+    }
 }
